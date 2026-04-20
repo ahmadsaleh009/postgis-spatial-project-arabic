@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: postgis16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: appdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
+      - type: bind
+        source: C:\pgadmin-data
+        target: /data
+      # Optional: auto-run SQL on first start (uncomment if you want)
+      # - ./init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: a@a.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - type: bind
+        source: C:\pgadmin-data
+        target: /data
+    restart: unless-stopped
+
+volumes:
+  postgis_data:
+  pgadmin_data:

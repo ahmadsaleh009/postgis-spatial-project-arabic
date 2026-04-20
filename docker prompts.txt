@@ -1,0 +1,22 @@
+docker ps -a   ** this list all containers
+docker ps -q      ** gives only ids for running containers
+
+docker stop $(docker ps -q)           **stop all running counters
+
+docker rm $(docker ps -aq)      **delete all containers
+
+docker volume rm $(docker volume ls -q)  **remove all volumes
+
+
+=========== this cleans everything
+option 2 — Nuclear option (recommended when learning)
+
+This removes everything Docker created (containers, volumes, networks, cache).
+
+docker system prune -a --volumes
+==============
+
+docker compose -f postgis.yml up -d   *** this is to run the yml file named postgis 
+ 
+
+
